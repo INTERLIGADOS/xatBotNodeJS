@@ -40,7 +40,7 @@ Network.prototype.connectToChat = function(callback){
 	self.socket = new xatSocket(net, xmlobj);
 	self.socket.connect(10021, '50.115.127.232', function(){
 
-		self.socket.write('<y r="' + self.config.chat + '" m="1" v="0" u="' + loginpacket.i + '" ' + self.config.foobar + ' />');
+		self.socket.write('<y r="' + self.config.chat + '" m="1" v="0" u="' + loginpacket.i + '"' + self.config.foobar + ' />');
 		self.socket.read(function(packet){
 
 			if(packet.node == 'y')
@@ -84,5 +84,15 @@ Network.prototype.connectToChat = function(callback){
 		});
 	});
 };
+
+Network.prototype.sendMessage = function(message){
+	var self = this;
+	self.socket.write('<m t="' + message + '" u="' + self.config.xatid + '" />');
+};
+
+Network.prototype.answerTickle = function(uid){
+	var self = this;
+	self.socket.write('<z d="' + uid + '" u="' + self.config.xatid + '_0" t="/a_NF" />');
+}
 
 module.exports = Network;
