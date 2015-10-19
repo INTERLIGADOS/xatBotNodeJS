@@ -6,7 +6,8 @@ var config = {
 	botname  : 'BotNodeJS',
 	avatar   : '123',
 	homepage : 'xat.com/Jedi',
-	foobar   : ''
+	foobar   : '',
+	cmdcode  : '!'
 };
 
 module.exports = config;

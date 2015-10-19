@@ -47,7 +47,7 @@ bot.login(function(){
 
 		if(hook){
 
-			if((hook == 'onMessage' || hook == 'onPC' || hook == 'onPM') && args.t.charAt(0) == '!'){
+			if((hook == 'onMessage' || hook == 'onPC' || hook == 'onPM') && args.t.charAt(0) == config.cmdcode){
 				
 				if(hook == 'onMessage')
 					args.type = 1;
