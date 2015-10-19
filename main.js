@@ -12,11 +12,31 @@ bot.login(function(){
 		switch(packet.node){
 
 			case 'm':
-				hook = 'onMessage';
+				if(args.u && !args.s && !args.p && args.i)
+					hook = 'onMessage';
+			break;
+
+			case 'p':
+				if(args.d)
+					hook = 'onPC';
+				else
+					hook = 'onPM';
 			break;
 
 			case 'z':
 				hook = 'onTickle';
+			break;
+
+			case 'l':
+				hook = 'onUserLeft';
+			break;
+
+			case 'u':
+				hook = 'onUserJoined'
+			break;
+
+			case 'idle':
+				hook = 'onIdle';
 			break;
 
 			default:
@@ -27,6 +47,17 @@ bot.login(function(){
 
 		if(hook){
 
+			if((hook == 'onMessage' || hook == 'onPC' || hook == 'onPM') && args.t.charAt(0) == '!'){
+				
+				if(hook == 'onMessage')
+					args.type = 1;
+				else if(hook == 'onPM')
+					args.type = 2;
+				else if(hook == 'onPC')
+					args.type = 3;
+
+				hook = 'onCommand';
+			}
 			var module = require('./modules/' + hook);
 			var obj    = new module(bot, args);
 

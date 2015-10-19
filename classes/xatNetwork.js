@@ -1,5 +1,5 @@
-var net = require('net');
-var xmlobj = require('nodexml');
+var net       = require('net');
+var xmlobj    = require('nodexml');
 var xatSocket = require('./xatSocket');
 
 var loginpacket = null;
@@ -90,9 +90,70 @@ Network.prototype.sendMessage = function(message){
 	self.socket.write('<m t="' + message + '" u="' + self.config.xatid + '" />');
 };
 
+Network.prototype.sendPrivateMessage = function(uid, message){
+	var self = this;
+	self.socket.write('<p u="' + uid + '" t="' + message + '" />');
+}
+
+Network.prototype.sendPrivateConversation = function(uid, message){
+	var self = this;
+	self.socket.write('<p u="' + uid + '" t="' + message + '" s="2" d="' + self.config.xatid + '" />');
+}
+
+Network.prototype.sendMessageAutoDetection = function(uid, message, type){
+	var self = this;
+	if(type == 1)
+		self.sendMessage(message);
+	else if(type == 2)
+		self.sendPrivateMessage(uid, message);
+	else if(type == 3)
+		self.sendPrivateConversation(uid, message);
+}
+
 Network.prototype.answerTickle = function(uid){
 	var self = this;
 	self.socket.write('<z d="' + uid + '" u="' + self.config.xatid + '_0" t="/a_NF" />');
+}
+
+Network.prototype.guest = function(uid){
+	var self = this;
+	self.socket.write('<c u="' + uid + '" t="/r" />');
+}
+
+Network.prototype.member = function(uid){
+	var self = this;
+	self.socket.write('<c u="' + uid + '" t="/e" />');
+}
+
+Network.prototype.moderator = function(uid){
+	var self = this;
+	self.socket.write('<c u="' + uid + '" t="/m" />');
+}
+
+Network.prototype.owner = function(uid){
+	var self = this;
+	self.socket.write('<c u="' + uid + '" t="/M" />');
+}
+
+Network.prototype.kick = function(uid, reason){
+	var self = this;
+	self.socket.write('<c p="' + reason + '" u="' + uid + '" t="/k" />');
+}
+
+Network.prototype.ban = function(uid, time, reason){
+	var self = this;
+
+	if(!time || time < 0)
+		time = 3600;
+	else
+		time *= 3600;
+
+	self.socket.write('<c p="' + reason + '" u="' + uid + '" t="/g' + time + '" />');
+}
+
+Network.prototype.unban = function(uid){
+	var self = this;
+	self.socket.write('<c u="' + uid + '" t="/u" />');
 }
 
 module.exports = Network;
