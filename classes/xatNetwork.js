@@ -48,33 +48,32 @@ Network.prototype.connectToChat = function(callback){
 				var data = {};
 
 				data.node     = 'j2';
-				data.elements = {};
-				
-				data.elements['cb'] = new Date().getTime();
-				data.elements['l5'] = '65535';
-				data.elements['l4'] = '500';
-				data.elements['l3'] = '500';
-				data.elements['l2'] = '0';
-				data.elements['q']  = '1';
-				data.elements['y']  = packet.elements.i;
-				data.elements['k']  = loginpacket.k1;
-				data.elements['k3'] = loginpacket.k3;
-				data.elements['p']  = '0';
-				data.elements['c']  = self.config.chat;
-				data.elements['r']  = '';
-				data.elements['f']  = '0';
-				data.elements['e']  = '';
-				data.elements['d0'] = loginpacket.d0;
-				data.elements['d2'] = loginpacket.d2;
-				data.elements['d3'] = loginpacket.d3;
-				data.elements['dx'] = loginpacket.dx;
-				data.elements['dt'] = loginpacket.dt;
-				data.elements['N']  = self.config.regname;
-				data.elements['n']  = self.config.botname;
-				data.elements['a']  = self.config.avatar;
-				data.elements['h']  = self.config.homepage;
-				data.elements['v']  = '</> with <3 by Jedi';
-
+				data.elements = {
+					'cb' : new Date().getTime(),
+					'l5' : '65535',
+					'l4' : '500',
+					'l3' : '500',
+					'l2' : '0',
+					'q'  : '1',
+					'y'  : packet.elements.i,
+					'k'  : loginpacket.k1,
+					'k3' : loginpacket.k3,
+					'p'  : '0',
+					'c'  : self.config.chat,
+					'r'  : '',
+					'f'  : '0',
+					'e'  : '',
+					'd0' : loginpacket.d0,
+					'd2' : loginpacket.d2,
+					'd3' : loginpacket.d3,
+					'dx' : loginpacket.dx,
+					'dt' : loginpacket.dt,
+					'N'  : self.config.regname,
+					'n'  : self.config.botname,
+					'a'  : self.config.avatar,
+					'h'  : self.config.homepage,
+					'v'  : '</> with <3 by Jedi'
+				};
 				self.socket.buildPacket(data);
 			}
 			else
@@ -89,10 +88,10 @@ Network.prototype.sendMessage = function(message){
 	var data = {};
 
 	data.node     = 'm';
-	data.elements = {};
-
-	data.elements['t'] = message;
-	data.elements['u'] = self.config.xatid;
+	data.elements = {
+		't' : message,
+		'u' : self.config.xatid
+	};
 
 	self.socket.buildPacket(data);
 };
@@ -102,10 +101,10 @@ Network.prototype.sendPrivateMessage = function(uid, message){
 	var data = {};
 
 	data.node     = 'p';
-	data.elements = {};
-
-	data.elements['u'] = uid;
-	data.elements['t'] = message;
+	data.elements = {
+		'u' : uid,
+		't' : message
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -115,12 +114,12 @@ Network.prototype.sendPrivateConversation = function(uid, message){
 	var data = {};
 
 	data.node     = 'p';
-	data.elements = {};
-
-	data.elements['u'] = uid;
-	data.elements['t'] = message;
-	data.elements['s'] = '2';
-	data.elements['d'] = self.config.xatid;
+	data.elements = {
+		'u' : uid,
+		't' : message,
+		's' : '2',
+		'd' : self.config.xatid
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -140,11 +139,11 @@ Network.prototype.answerTickle = function(uid){
 	var data = {};
 
 	data.node     = 'z';
-	data.elements = {};
-
-	data.elements['d'] = uid;
-	data.elements['u'] = self.config.xatid + '_0';
-	data.elements['t'] = '/a_NF';
+	data.elements = {
+		'd' : uid,
+		'u' : self.config.xatid + '_0',
+		't' : '/a_NF'
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -154,10 +153,10 @@ Network.prototype.guest = function(uid){
 	var data = {};
 
 	data.node     = 'c';
-	data.elements = {};
-
-	data.elements['u'] = uid;
-	data.elements['u'] = '/r';
+	data.elements = {
+		'u' : uid,
+		't' : '/r'
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -167,10 +166,10 @@ Network.prototype.member = function(uid){
 	var data = {};
 
 	data.node     = 'c';
-	data.elements = {};
-
-	data.elements['u'] = uid;
-	data.elements['u'] = '/e';
+	data.elements = {
+		'u' : uid,
+		't' : '/e'
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -180,10 +179,10 @@ Network.prototype.moderator = function(uid){
 	var data = {};
 
 	data.node     = 'c';
-	data.elements = {};
-
-	data.elements['u'] = uid;
-	data.elements['u'] = '/m';
+	data.elements = {
+		'u' : uid,
+		't' : '/m'
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -193,10 +192,10 @@ Network.prototype.owner = function(uid){
 	var data = {};
 
 	data.node     = 'c';
-	data.elements = {};
-
-	data.elements['u'] = uid;
-	data.elements['u'] = '/M';
+	data.elements = {
+		'u' : uid,
+		't' : '/M'
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -206,11 +205,11 @@ Network.prototype.kick = function(uid, reason){
 	var data = {};
 
 	data.node     = 'c';
-	data.elements = {};
-
-	data.elements['p'] = reason;
-	data.elements['u'] = uid;
-	data.elements['t'] = '/k';
+	data.elements = {
+		'p' : reason,
+		'u' : uid,
+		't' : '/k'
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -225,11 +224,11 @@ Network.prototype.ban = function(uid, time, reason){
 		time *= 3600;
 
 	data.node     = 'c';
-	data.elements = {};
-
-	data.elements['p'] = reason;
-	data.elements['u'] = uid;
-	data.elements['t'] = '/g' + time;
+	data.elements = {
+		'p' : reason,
+		'u' : uid,
+		't' : '/k' + time
+	};
 
 	self.socket.buildPacket(data);
 }
@@ -239,10 +238,10 @@ Network.prototype.unban = function(uid){
 	var data = {};
 
 	data.node     = 'c';
-	data.elements = {};
-
-	data.elements['u'] = uid;
-	data.elements['t'] = '/u';
+	data.elements = {
+		'u' : uid,
+		't' : '/u'
+	};
 
 	self.socket.buildPacket(data);
 }
