@@ -45,38 +45,37 @@ Network.prototype.connectToChat = function(callback){
 
 			if(packet.node == 'y')
 			{
-				var j2   = {};
-				j2['cb'] = new Date().getTime();
-				j2['l5'] = '65535';
-				j2['l4'] = '500';
-				j2['l3'] = '500';
-				j2['l2'] = '0';
-				j2['q']  = '1';
-				j2['y']  = packet.elements.i;
-				j2['k']  = loginpacket.k1;
-				j2['k3'] = loginpacket.k3;
-				j2['p']  = '0';
-				j2['c']  = self.config.chat;
-				j2['r']  = '';
-				j2['f']  = '0';
-				j2['e']  = '';
-				j2['d0'] = loginpacket.d0;
-				j2['d2'] = loginpacket.d2;
-				j2['d3'] = loginpacket.d3;
-				j2['dx'] = loginpacket.dx;
-				j2['dt'] = loginpacket.dt;
-				j2['N']  = self.config.regname;
-				j2['n']  = self.config.botname;
-				j2['a']  = self.config.avatar;
-				j2['h']  = self.config.homepage;
-				j2['v']  = '</> with <3 by Jedi';
+				var data = {};
 
-				var string = '';
-				for(var key in j2)
-					if(j2.hasOwnProperty(key))
-						string += key + '="' + j2[key] + '" ';
+				data.node     = 'j2';
+				data.elements = {};
+				
+				data.elements['cb'] = new Date().getTime();
+				data.elements['l5'] = '65535';
+				data.elements['l4'] = '500';
+				data.elements['l3'] = '500';
+				data.elements['l2'] = '0';
+				data.elements['q']  = '1';
+				data.elements['y']  = packet.elements.i;
+				data.elements['k']  = loginpacket.k1;
+				data.elements['k3'] = loginpacket.k3;
+				data.elements['p']  = '0';
+				data.elements['c']  = self.config.chat;
+				data.elements['r']  = '';
+				data.elements['f']  = '0';
+				data.elements['e']  = '';
+				data.elements['d0'] = loginpacket.d0;
+				data.elements['d2'] = loginpacket.d2;
+				data.elements['d3'] = loginpacket.d3;
+				data.elements['dx'] = loginpacket.dx;
+				data.elements['dt'] = loginpacket.dt;
+				data.elements['N']  = self.config.regname;
+				data.elements['n']  = self.config.botname;
+				data.elements['a']  = self.config.avatar;
+				data.elements['h']  = self.config.homepage;
+				data.elements['v']  = '</> with <3 by Jedi';
 
-				self.socket.write('<j2 ' + string + '/>');
+				self.socket.buildPacket(data);
 			}
 			else
 				callback(packet);
@@ -87,17 +86,43 @@ Network.prototype.connectToChat = function(callback){
 
 Network.prototype.sendMessage = function(message){
 	var self = this;
-	self.socket.write('<m t="' + message + '" u="' + self.config.xatid + '" />');
+	var data = {};
+
+	data.node     = 'm';
+	data.elements = {};
+
+	data.elements['t'] = message;
+	data.elements['u'] = self.config.xatid;
+
+	self.socket.buildPacket(data);
 };
 
 Network.prototype.sendPrivateMessage = function(uid, message){
 	var self = this;
-	self.socket.write('<p u="' + uid + '" t="' + message + '" />');
+	var data = {};
+
+	data.node     = 'p';
+	data.elements = {};
+
+	data.elements['u'] = uid;
+	data.elements['t'] = message;
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.sendPrivateConversation = function(uid, message){
 	var self = this;
-	self.socket.write('<p u="' + uid + '" t="' + message + '" s="2" d="' + self.config.xatid + '" />');
+	var data = {};
+
+	data.node     = 'p';
+	data.elements = {};
+
+	data.elements['u'] = uid;
+	data.elements['t'] = message;
+	data.elements['s'] = '2';
+	data.elements['d'] = self.config.xatid;
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.sendMessageAutoDetection = function(uid, message, type){
@@ -112,48 +137,114 @@ Network.prototype.sendMessageAutoDetection = function(uid, message, type){
 
 Network.prototype.answerTickle = function(uid){
 	var self = this;
-	self.socket.write('<z d="' + uid + '" u="' + self.config.xatid + '_0" t="/a_NF" />');
+	var data = {};
+
+	data.node     = 'z';
+	data.elements = {};
+
+	data.elements['d'] = uid;
+	data.elements['u'] = self.config.xatid + '_0';
+	data.elements['t'] = '/a_NF';
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.guest = function(uid){
 	var self = this;
-	self.socket.write('<c u="' + uid + '" t="/r" />');
+	var data = {};
+
+	data.node     = 'c';
+	data.elements = {};
+
+	data.elements['u'] = uid;
+	data.elements['u'] = '/r';
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.member = function(uid){
 	var self = this;
-	self.socket.write('<c u="' + uid + '" t="/e" />');
+	var data = {};
+
+	data.node     = 'c';
+	data.elements = {};
+
+	data.elements['u'] = uid;
+	data.elements['u'] = '/e';
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.moderator = function(uid){
 	var self = this;
-	self.socket.write('<c u="' + uid + '" t="/m" />');
+	var data = {};
+
+	data.node     = 'c';
+	data.elements = {};
+
+	data.elements['u'] = uid;
+	data.elements['u'] = '/m';
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.owner = function(uid){
 	var self = this;
-	self.socket.write('<c u="' + uid + '" t="/M" />');
+	var data = {};
+
+	data.node     = 'c';
+	data.elements = {};
+
+	data.elements['u'] = uid;
+	data.elements['u'] = '/M';
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.kick = function(uid, reason){
 	var self = this;
-	self.socket.write('<c p="' + reason + '" u="' + uid + '" t="/k" />');
+	var data = {};
+
+	data.node     = 'c';
+	data.elements = {};
+
+	data.elements['p'] = reason;
+	data.elements['u'] = uid;
+	data.elements['t'] = '/k';
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.ban = function(uid, time, reason){
 	var self = this;
+	var data = {};
 
 	if(!time || time < 0)
 		time = 3600;
 	else
 		time *= 3600;
 
-	self.socket.write('<c p="' + reason + '" u="' + uid + '" t="/g' + time + '" />');
+	data.node     = 'c';
+	data.elements = {};
+
+	data.elements['p'] = reason;
+	data.elements['u'] = uid;
+	data.elements['t'] = '/g' + time;
+
+	self.socket.buildPacket(data);
 }
 
 Network.prototype.unban = function(uid){
 	var self = this;
-	self.socket.write('<c u="' + uid + '" t="/u" />');
+	var data = {};
+
+	data.node     = 'c';
+	data.elements = {};
+
+	data.elements['u'] = uid;
+	data.elements['t'] = '/u';
+
+	self.socket.buildPacket(data);
 }
 
 module.exports = Network;

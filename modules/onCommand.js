@@ -1,10 +1,7 @@
 function onCommand(bot, args){
-	console.log(args);
 	args.t = args.t.substring(1);
-	console.log(args);
 
 	var message = args.t.split(' ');
-	console.log(message);
 	switch(message[0]){
 
 		case 'say':

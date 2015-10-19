@@ -31,7 +31,7 @@ Socket.prototype.disconnect = function(){
 
 Socket.prototype.parsePacket = function(data, callback){
 
-	var self = this;
+	var self   = this;
 	var packet = {
 		node: '',
 		elements: {}
@@ -44,5 +44,15 @@ Socket.prototype.parsePacket = function(data, callback){
 
 	callback(packet);
 };
+
+Socket.prototype.buildPacket = function(data){
+	var self   = this;
+	var string = '';
+
+	for(var key in data.elements)
+		string += key + '="' + data.elements[key] + '" ';
+
+	self.write('<' + data.node + ' ' + string + '/>');
+}
 
 module.exports = Socket;
