@@ -37,12 +37,17 @@ Socket.prototype.parsePacket = function(data, callback){
 		elements: {}
 	};
 
-	temp = self.xml.xml2obj(data);
-	delete temp[Object.keys(temp)[0]]['@'];
-	packet.node = Object.keys(temp)[0];
-	packet.elements = temp[Object.keys(temp)[0]];
+	var array = data.match(/<([\w]+)[^>]*>/g);
 
-	callback(packet);
+	array.forEach(function(data, index, arr){
+		self.xml.Parser().parseString(data, function (err, result){
+			temp = result;
+		});
+		packet.node = Object.keys(temp)[0];
+		packet.elements = temp[Object.keys(temp)[0]].$;
+
+		callback(packet);
+	});
 };
 
 Socket.prototype.buildPacket = function(data){

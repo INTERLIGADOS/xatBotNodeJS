@@ -23,7 +23,7 @@
 		"modules": "./modules"
 	},
 	"dependencies": {
-		"nodexml": "1.0",
+		"xml2js": "0.4.*",
 		"underscore": "1.8.*"
 	}
 }

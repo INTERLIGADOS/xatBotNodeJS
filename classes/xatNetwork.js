@@ -1,6 +1,6 @@
 var _         = require('underscore');
 var net       = require('net');
-var xmlobj    = require('nodexml');
+var xml2js    = require('xml2js');
 var xatSocket = require('./xatSocket');
 
 var loginpacket = null;
@@ -13,14 +13,14 @@ function Network(config){
 Network.prototype.login = function(callback){
 
 	var self = this;
-	self.socket = new xatSocket(net, xmlobj);
+	self.socket = new xatSocket(net, xml2js);
 	self.socket.connect(10000, '199.195.198.168', function(){
 
 		self.socket.write('<y r="8" v="0" u="' + self.config.xatid + '" />');
 		self.socket.read(function(packet){
 
 			if(packet.node == 'y')
-				self.socket.write('<v n="' + self.config.regname + '" p="$-' + self.config.password + '" />');
+				self.socket.write('<v n="' + self.config.regname + '" p="$' + self.config.password + '" />');
 
 			if(packet.node == 'v')
 			{
@@ -38,7 +38,7 @@ Network.prototype.login = function(callback){
 Network.prototype.connectToChat = function(callback){
 
 	var self = this;
-	self.socket = new xatSocket(net, xmlobj);
+	self.socket = new xatSocket(net, xml2js);
 	self.socket.connect(10021, '50.115.127.232', function(){
 
 		self.socket.write('<y r="' + self.config.chat + '" m="1" v="0" u="' + loginpacket.i + '"' + self.config.foobar + ' />');
@@ -49,18 +49,14 @@ Network.prototype.connectToChat = function(callback){
 				var data = {};
 				var temp = {};
 
-				console.log(loginpacket);
-
 				data.node = 'j2';
 
 				data.elements = {
 					'cb' : new Date().getTime(),
-					'Y'  : '2',
 					'l5' : '65535',
 					'l4' : '500',
 					'l3' : '500',
 					'l2' : '0',
-					'q'  : '1',
 					'y'  : packet.elements.i,
 					'k'  : loginpacket.k1,
 					'k3' : loginpacket.k3
@@ -71,14 +67,13 @@ Network.prototype.connectToChat = function(callback){
 				temp = {
 					'p'  : '0',
 					'c'  : self.config.chat,
-					'r'  : '123',
 					'f'  : '0',
 					'u'  : loginpacket.i,
 					'd0' : loginpacket.d0,
 				};
 
 				_.extend(data.elements, temp);
-				if(loginpacket.d2) _.extend(data.elements, {'d2' : loginpacket.d1});
+				if(loginpacket.d2) _.extend(data.elements, {'d2' : loginpacket.d2});
 				_.extend(data.elements, {'d3' : loginpacket.d3,});
 				if(loginpacket.d4) _.extend(data.elements, {'d4' : loginpacket.d4});
 				if(loginpacket.d5) _.extend(data.elements, {'d5' : loginpacket.d5});
@@ -96,6 +91,7 @@ Network.prototype.connectToChat = function(callback){
 				if(loginpacket.d17) _.extend(data.elements, {'d17' : loginpacket.d17});
 
 				temp = {
+					'dO' : '259=749|320=99',
 					'dx' : loginpacket.dx,
 					'dt' : loginpacket.dt,
 					'N'  : self.config.regname,
