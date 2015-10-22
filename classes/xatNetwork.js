@@ -89,9 +89,9 @@ Network.prototype.connectToChat = function(callback){
 				if(loginpacket.d15) _.extend(data.elements, {'d15' : loginpacket.d15});
 				if(loginpacket.d16) _.extend(data.elements, {'d16' : loginpacket.d16});
 				if(loginpacket.d17) _.extend(data.elements, {'d17' : loginpacket.d17});
+				if(loginpacket.dO) _.extend(data.elements, {'dO' : loginpacket.dO});
 
 				temp = {
-					'dO' : '259=749|320=99',
 					'dx' : loginpacket.dx,
 					'dt' : loginpacket.dt,
 					'N'  : self.config.regname,
