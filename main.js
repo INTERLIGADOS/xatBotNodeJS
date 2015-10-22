@@ -7,8 +7,8 @@ bot.login(function(){
 
     bot.connectToChat(function(packet){
 
-        var hook = '';
-        var args = packet.elements;;
+        var hook = null;
+        var args = packet.elements;
         switch(packet.node){
 
             case 'm':
@@ -32,7 +32,7 @@ bot.login(function(){
             break;
 
             case 'u':
-                hook = 'onUserJoined'
+                hook = 'onUserJoined';
             break;
 
             case 'idle':
@@ -45,7 +45,7 @@ bot.login(function(){
 
         }
 
-        if(hook){
+        if(hook !== null){
 
             if((hook == 'onMessage' || hook == 'onPC' || hook == 'onPM') && args.t.charAt(0) == config.cmdcode){
 

@@ -17,13 +17,13 @@ Network.prototype.login = function(callback) {
     self.socket.connect(10000, '199.195.198.168', function() {
 
         self.socket.write('<y r="8" v="0" u="' + self.config.xatid + '" />');
+
         self.socket.read(function(packet){
-
-            if(packet.node == 'y')
+            if(packet.node == 'y') {
                 self.socket.write('<v n="' + self.config.regname + '" p="$' + self.config.password + '" />');
+            }
 
-            if(packet.node == 'v')
-            {
+            if(packet.node == 'v') {
                 loginpacket = packet.elements;
                 self.socket.disconnect();
                 callback();
@@ -44,8 +44,13 @@ Network.prototype.connectToChat = function(callback) {
         self.socket.write('<y r="' + self.config.chat + '" m="1" v="0" u="' + loginpacket.i + '"' + self.config.foobar + ' />');
         self.socket.read(function(packet){
 
-            if(packet.node == 'y')
-            {
+            if(packet.node == 'y') {
+                var node = packet.node;
+                var y = {};
+
+                y[node] = packet.elements;
+                self.packets = y;
+
                 var data = {};
                 var temp = {};
 
