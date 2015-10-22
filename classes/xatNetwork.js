@@ -86,10 +86,10 @@ Network.prototype.connectToChat = function(callback) {
                 }
 
                 if(loginpacket.dO) _.extend(data.elements, {'dO' : loginpacket.dO});
+                if(loginpacket.dx) _.extend(data.elements, {'dx' : loginpacket.dx});
+                if(loginpacket.dt) _.extend(data.elements, {'dt' : loginpacket.dt});
 
                 temp = {
-                    'dx' : loginpacket.dx,
-                    'dt' : loginpacket.dt,
                     'N'  : self.config.regname,
                     'n'  : self.config.botname,
                     'a'  : self.config.avatar,
