@@ -71,16 +71,15 @@ Network.prototype.connectToChat = function(callback) {
                     'u'  : loginpacket.i,
                     'd0' : loginpacket.d0,
                 };
-
                 _.extend(data.elements, temp);
 
                 for (var i = 2; i < 15; i++) {
                     var identifier = 'd' + i;
 
-                    if (typeof loginpacket[identifier] != 'undefined') {
+                    if (typeof loginpacket[identifier] !== 'undefined') {
                         var object = {};
 
-                        object[identifier] = loginpacket['d' + i];
+                        object[identifier] = loginpacket[identifier];
 
                         _.extend(data.elements, object);
                     }
@@ -97,8 +96,8 @@ Network.prototype.connectToChat = function(callback) {
                     'h'  : self.config.homepage,
                     'v'  : '</> with <3 by Jedi'
                 };
-
                 _.extend(data.elements, temp);
+
                 self.socket.buildPacket(data);
             }
             else
