@@ -1,29 +1,29 @@
 {
-	"name": "xatBotNodeJS",
-	"version": "0.0.1",
-	"description": "A bot for xat in NodeJS",
-	"readme": "README.md",
-	"author": "Guillaume <jedi@xat.chat>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/llomgui/xatBotNodeJS"
-	},
-	"bugs": {
-		"url": "https://github.com/llomgui/xatBotNodeJS/issues"
-	},
-	"keywords": [
-		"xat",
-		"bot",
-		"jedi"
-	],
-	"license": "MIT",
-	"main": "main.js",
-	"directories": {
-		"classes": "./classes",
-		"modules": "./modules"
-	},
-	"dependencies": {
-		"xml2js": "0.4.*",
-		"underscore": "1.8.*"
-	}
+    "name": "xatBotNodeJS",
+    "version": "1.0.0",
+    "description": "A bot for xat in NodeJS",
+    "readme": "README.md",
+    "author": "Guillaume <jedi@xat.chat>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/llomgui/xatBotNodeJS"
+    },
+    "bugs": {
+        "url": "https://github.com/llomgui/xatBotNodeJS/issues"
+    },
+    "keywords": [
+        "xat",
+        "bot",
+        "jedi"
+    ],
+    "license": "MIT",
+    "main": "main.js",
+    "directories": {
+        "classes": "./classes",
+        "modules": "./modules"
+    },
+    "dependencies": {
+        "xml2js": "0.4.*",
+        "underscore": "1.8.*"
+    }
 }

@@ -73,22 +73,19 @@ Network.prototype.connectToChat = function(callback) {
                 };
 
                 _.extend(data.elements, temp);
-                if(loginpacket.d2) _.extend(data.elements, {'d2' : loginpacket.d2});
-                _.extend(data.elements, {'d3' : loginpacket.d3,});
-                if(loginpacket.d4) _.extend(data.elements, {'d4' : loginpacket.d4});
-                if(loginpacket.d5) _.extend(data.elements, {'d5' : loginpacket.d5});
-                if(loginpacket.d6) _.extend(data.elements, {'d6' : loginpacket.d6});
-                if(loginpacket.d7) _.extend(data.elements, {'d7' : loginpacket.d7});
-                if(loginpacket.d8) _.extend(data.elements, {'d8' : loginpacket.d8});
-                if(loginpacket.d9) _.extend(data.elements, {'d9' : loginpacket.d9});
-                if(loginpacket.d10) _.extend(data.elements, {'d10' : loginpacket.d10});
-                if(loginpacket.d11) _.extend(data.elements, {'d11' : loginpacket.d11});
-                if(loginpacket.d12) _.extend(data.elements, {'d12' : loginpacket.d12});
-                if(loginpacket.d13) _.extend(data.elements, {'d13' : loginpacket.d13});
-                if(loginpacket.d14) _.extend(data.elements, {'d14' : loginpacket.d14});
-                if(loginpacket.d15) _.extend(data.elements, {'d15' : loginpacket.d15});
-                if(loginpacket.d16) _.extend(data.elements, {'d16' : loginpacket.d16});
-                if(loginpacket.d17) _.extend(data.elements, {'d17' : loginpacket.d17});
+
+                for (var i = 2; i < 15; i++) {
+                    var identifier = 'd' + i;
+
+                    if (typeof loginpacket[identifier] != 'undefined') {
+                        var object = {};
+
+                        object[identifier] = loginpacket['d' + i];
+
+                        _.extend(data.elements, object);
+                    }
+                }
+
                 if(loginpacket.dO) _.extend(data.elements, {'dO' : loginpacket.dO});
 
                 temp = {
