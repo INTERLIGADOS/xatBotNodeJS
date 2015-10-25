@@ -58,7 +58,9 @@ bot.login(function(){
 
                 hook = 'onCommand';
             }
-            var module = require('./modules/' + hook);
+
+            var reload = require('require-reload')(require);
+            var module = reload('./modules/' + hook);
             var obj    = new module(bot, args);
 
         }

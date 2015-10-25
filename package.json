@@ -24,6 +24,8 @@
     },
     "dependencies": {
         "xml2js": "0.4.*",
-        "underscore": "1.8.*"
+        "underscore": "1.8.*",
+        "request": "2.65.*",
+        "require-reload": "0.2.*"
     }
 }
