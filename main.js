@@ -1,4 +1,5 @@
 var xatBot = require('./classes/xatBot');
+var config = require('./config');
 
 var bot = new xatBot();
 

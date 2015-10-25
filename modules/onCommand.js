@@ -8,7 +8,6 @@ function onCommand(bot, args){
 	switch(message[0]){
 
 		case 'say':
-		console.log('coucou');
 			delete message[0];
 			message = message.join(' ').trim();
 			if(message.charAt(0) != '/')

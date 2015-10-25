@@ -9,8 +9,8 @@ Bot.prototype.onData = function(callback) {
 
 	var self = this;
 	self.network.login(function(){
-		self.network.connectToChat(function(callback){
-
+		self.network.connectToChat(function(packet){
+			callback(packet);
 		});
 	});
 };
