@@ -20,7 +20,7 @@ Network.prototype.login = function(callback) {
         self.socket.read(function(packet){
 
             if(packet.node == 'y')
-                self.socket.write('<v n="' + self.config.regname + '" p="$' + self.config.password + '" />');
+                self.socket.write('<v n="' + self.config.regname + '" p="' + self.config.password + '" />');
 
             if(packet.node == 'v')
             {
@@ -46,6 +46,8 @@ Network.prototype.connectToChat = function(callback) {
 
             if(packet.node == 'y')
             {
+                self.config.y = packet.elements;
+
                 var data = {};
                 var temp = {};
 
@@ -73,7 +75,7 @@ Network.prototype.connectToChat = function(callback) {
                 };
                 _.extend(data.elements, temp);
 
-                for (var i = 2; i < 15; i++) {
+                for (var i = 2; i < 20; i++) {
                     var identifier = 'd' + i;
 
                     if (typeof loginpacket[identifier] !== 'undefined') {
