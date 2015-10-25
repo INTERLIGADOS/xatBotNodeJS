@@ -43,6 +43,9 @@ Socket.prototype.parsePacket = function(data, callback) {
         self.xml.Parser().parseString(data, function (err, result) {
             temp = result;
         });
+
+        if(!temp) return;
+
         packet.node = Object.keys(temp)[0];
         packet.elements = temp[Object.keys(temp)[0]].$;
 
