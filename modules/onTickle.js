@@ -1,7 +1,7 @@
 function onTickle(bot, args){
 	
 	if(args.t == '/l')
-		bot.answerTickle(this.parseU(args.u));
+		bot.network.answerTickle(this.parseU(args.u));
 };
 
 onTickle.prototype.parseU = function(uid){

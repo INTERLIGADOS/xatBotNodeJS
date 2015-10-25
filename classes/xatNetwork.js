@@ -1,11 +1,12 @@
 var _         = require('underscore');
 var net       = require('net');
 var xml2js    = require('xml2js');
+var config    = require('.././config');
 var xatSocket = require('./xatSocket');
 
 var loginpacket = null;
 
-function Network(config) {
+function Network() {
     this.config = config;
     this.socket = null;
 }

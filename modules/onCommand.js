@@ -8,12 +8,13 @@ function onCommand(bot, args){
 	switch(message[0]){
 
 		case 'say':
+		console.log('coucou');
 			delete message[0];
 			message = message.join(' ').trim();
 			if(message.charAt(0) != '/')
-				bot.sendMessageAutoDetection(args.u, message, args.type);
+				bot.network.sendMessageAutoDetection(args.u, message, args.type);
 			else
-				bot.sendMessageAutoDetection(args.u, 'Nope.', args.type);
+				bot.network.sendMessageAutoDetection(args.u, 'Nope.', args.type);
 		break;
 
 		case 'memory':
@@ -28,13 +29,13 @@ function onCommand(bot, args){
 						request('http://xat.com/web_gear/chat/roomid.php?d=' + message[2], function(error, response, body){
 							if(!error && response.statusCode == 200){
 								if(body != '-10-110')
-									bot.sendMessageAutoDetection(args.u, 'The chatid is: ' + body, args.type);
+									bot.network.sendMessageAutoDetection(args.u, 'The chatid is: ' + body, args.type);
 								else
-									bot.sendMessageAutoDetection(args.u, 'The chat does not exist.', args.type);
+									bot.network.sendMessageAutoDetection(args.u, 'The chat does not exist.', args.type);
 							}
 						});
 					}else{
-						bot.sendMessageAutoDetection(args.u, 'Usage: !misc chatid [chatname]', args.type);
+						bot.network.sendMessageAutoDetection(args.u, 'Usage: !misc chatid [chatname]', args.type);
 					}
 				break;
 
@@ -45,16 +46,16 @@ function onCommand(bot, args){
 							request('http://xat.me/Jedi?id=' + message[2], function(error, response, body){
 								if(!error && response.statusCode == 200){
 									if(body)
-										bot.sendMessageAutoDetection(args.u, 'The regname is: ' + body, args.type);
+										bot.network.sendMessageAutoDetection(args.u, 'The regname is: ' + body, args.type);
 									else
-										bot.sendMessageAutoDetection(args.u, 'This xatid does not exist.', args.type);
+										bot.network.sendMessageAutoDetection(args.u, 'This xatid does not exist.', args.type);
 								}
 							});
 						}else{
-							bot.sendMessageAutoDetection(args.u, 'The xatid cannot be not numeric.', args.type);
+							bot.network.sendMessageAutoDetection(args.u, 'The xatid cannot be not numeric.', args.type);
 						}
 					}else{
-						bot.sendMessageAutoDetection(args.u, 'Usage: !misc regname [xatid]', args.type);
+						bot.network.sendMessageAutoDetection(args.u, 'Usage: !misc regname [xatid]', args.type);
 					}
 				break;
 
@@ -64,27 +65,27 @@ function onCommand(bot, args){
 							request('http://xat.me/Jedi?name=' + message[2], function(error, response, body){
 								if(!error && response.statusCode == 200){
 									if(body)
-										bot.sendMessageAutoDetection(args.u, 'The xatid is: ' + body, args.type);
+										bot.network.sendMessageAutoDetection(args.u, 'The xatid is: ' + body, args.type);
 									else
-										bot.sendMessageAutoDetection(args.u, 'This regname does not exist.', args.type);
+										bot.network.sendMessageAutoDetection(args.u, 'This regname does not exist.', args.type);
 								}
 							});
 						}else{
-							bot.sendMessageAutoDetection(args.u, 'The regname cannot be a numeric value.', args.type);
+							bot.network.sendMessageAutoDetection(args.u, 'The regname cannot be a numeric value.', args.type);
 						}
 					}else{
-						bot.sendMessageAutoDetection(args.u, 'Usage: !misc id [regname]', args.type);
+						bot.network.sendMessageAutoDetection(args.u, 'Usage: !misc id [regname]', args.type);
 					}
 				break;
 
 				default:
-					bot.sendMessageAutoDetection(args.u, 'Usage: !misc [chatid/regname/id]', args.type);
+					bot.network.sendMessageAutoDetection(args.u, 'Usage: !misc [chatid/regname/id]', args.type);
 			}
 		break;
 
 		case 'xavi':
 			// Edit xavi
-			request('http://xat.com/json/xavi/get.php?u=' + bot.config.xatid, function(error, response, body){
+			request('http://xat.com/json/xavi/get.php?u=' + bot.network.config.xatid, function(error, response, body){
 				if(error)
 					return console.log(error);
 
@@ -105,15 +106,15 @@ function onCommand(bot, args){
 				xavi.head.c = '34816'; // green
 
 				var params  = {};
-				params.k    = bot.config.y.k;
+				params.k    = bot.network.config.y.k;
 				params.xavi = JSON.stringify(xavi);
-				params.u    = bot.config.xatid;
-				params.au   = bot.config.y.au;
-				params.i    = bot.config.y.i;
-				params.v    = bot.config.y.v;
-				params.s    = bot.config.y.s;
-				params.j    = bot.config.y.j;
-				params.t    = bot.config.y.t;
+				params.u    = bot.network.config.xatid;
+				params.au   = bot.network.config.y.au;
+				params.i    = bot.network.config.y.i;
+				params.v    = bot.network.config.y.v;
+				params.s    = bot.network.config.y.s;
+				params.j    = bot.network.config.y.j;
+				params.t    = bot.network.config.y.t;
 
 				console.log(params);
 
