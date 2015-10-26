@@ -123,6 +123,10 @@ function onCommand(bot, args){
 			});
 		break;
 
+		case 'users':
+			bot.network.sendMessageAutoDetection(args.u, 'There are ' + Object.keys(bot.users).length + ' users online on the chat.', args.type);
+		break;
+
 	}
 };
 
